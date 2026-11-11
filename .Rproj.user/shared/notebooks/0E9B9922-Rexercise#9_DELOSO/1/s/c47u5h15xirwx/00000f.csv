@@ -1,0 +1,7 @@
+"0","# Calculate the correlation"
+"0",""
+"0","cor(shoes$ShoeSize, shoes$Height)"
+"1","[1]"
+"1"," 0.7766089"
+"1","
+"

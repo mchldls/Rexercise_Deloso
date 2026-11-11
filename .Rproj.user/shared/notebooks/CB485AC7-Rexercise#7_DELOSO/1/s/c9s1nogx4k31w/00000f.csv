@@ -1,0 +1,7 @@
+"0","# Count male respondents"
+"0",""
+"0","sum(survey$Sex == ""Male"")"
+"1","[1]"
+"1"," 3"
+"1","
+"

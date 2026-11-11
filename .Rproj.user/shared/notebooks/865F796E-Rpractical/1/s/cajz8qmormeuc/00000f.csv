@@ -1,0 +1,2 @@
+"0","students$average <- round((students$midterm + students$final) / 2, 1)"
+"0","students"

@@ -1,0 +1,8 @@
+"0","# Get values greater than or equal to 90"
+"0","scores[scores >= 90]"
+"1","[1]"
+"1"," 95"
+"1"," 92"
+"1"," 90"
+"1","
+"

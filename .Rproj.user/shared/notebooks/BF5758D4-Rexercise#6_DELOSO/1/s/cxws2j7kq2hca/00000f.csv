@@ -1,0 +1,5 @@
+"0","# Create the remarks column"
+"0","grades$remarks <- ifelse(grades$average >= 75, ""Passed"", ""Failed"")"
+"0",""
+"0","# Display only the failed students and their averages"
+"0","grades[grades$remarks == ""Failed"", c(""name"", ""average"")]"

@@ -1,0 +1,4 @@
+"0",""
+"0","# Display the last 6 rows"
+"0",""
+"0","tail(shoes)"
