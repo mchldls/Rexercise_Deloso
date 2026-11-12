@@ -309,3 +309,5 @@ Conclusion
 In 3–4 sentences, summarize what a data frame is, how it relates to vectors and lists from earlier labs, and why it is R’s primary structure for real-world tabular data.
 
 Answer:A data frame is a two-dimensional data structure that organizes information into rows and columns. It is similar to a list because each column contains a vector, but different columns can have different data types, such as character, numeric, and logical. Data frames are useful for storing and managing real-world information, such as student records, grades, and attendance. The cbind() and rbind() functions are useful for adding new columns or rows when updating a dataset.
+
+
