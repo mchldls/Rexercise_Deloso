@@ -1,0 +1,353 @@
+---
+title: "Rexercise#5_DELOSO"
+author: "Michael Andrew Deloso"
+date: "2026-11-09"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
+
+Part A — Creating Matrices
+# TODO: Create a 3x3 matrix called m1 containing the numbers 1 to 9,
+# using matrix(1:9, nrow = 3, ncol = 3)
+# Print m1
+```{r}
+# Create a 3x3 matrix containing numbers 1 to 9
+m1 <- matrix(1:9, nrow = 3, ncol = 3)
+
+# Print the matrix
+print(m1)
+```
+Answer:The matrix m1 contains numbers 1 to 9 arranged in 3 rows and 3 columns. By default, R fills the matrix column by column.
+
+# TODO: Create a second 3x3 matrix called m2 with the SAME numbers 1:9,
+# but this time add the argument byrow = TRUE
+# Print m2 and compare it to m1
+```{r}
+# Create a 3x3 matrix filled row by row
+m2 <- matrix(1:9, nrow = 3, ncol = 3, byrow = TRUE)
+
+# Print the matrix
+print(m2)
+```
+Answer:The matrix m2 contains the same numbers as m1, but the arrangement is different. The byrow = TRUE argument tells R to fill the matrix row by row instead of column by column.
+
+scores <- matrix(c(88, 92, 79, 95, 84, 90), nrow = 2, ncol = 3, byrow = TRUE)
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid")
+
+# TODO: Print scores and confirm the row/column names were applied
+```{r}
+# Create a scores matrix
+scores <- matrix(c(88, 92, 79, 95, 84, 90),
+                 nrow = 2, ncol = 3, byrow = TRUE)
+
+# Assign row names
+rownames(scores) <- c("Quiz1", "Quiz2")
+
+# Assign column names
+colnames(scores) <- c("Ana", "Ben", "Cid")
+
+# Print the scores matrix
+print(scores)
+```
+Answer:The scores matrix was successfully created with two rows and three columns. The row names are Quiz1 and Quiz2, while the column names are Ana, Ben, and Cid. Each number represents the quiz score of each student.
+
+Question #1:Compare m1 and m2 above. Both were built from 1:9 with nrow = 3, ncol = 3, but they look different.
+Explain exactly what byrow = TRUE changes about how R fills a matrix.
+
+Answer:The difference between m1 and m2 is how R arranges the numbers inside the matrix. By default, R fills the matrix column by column, starting from the first column. When we use byrow = TRUE, R fills the matrix row by row, starting from the first row. Both matrices contain the same numbers from 1 to 9, but their arrangement is different
+
+Question #2:If you tried matrix(1:8, nrow = 3, ncol = 3) (only 8 numbers for 9 slots), what do you think would happen?
+Test it and explain the result, including any warning message.
+```{r}
+# Create a matrix with only 8 numbers but 9 slots
+m3 <- matrix(1:8, nrow = 3, ncol = 3)
+
+# Display the matrix
+print(m3)
+```
+Answer:When I create a 3×3 matrix using only 8 numbers, R automatically recycles the values to fill all 9 available spaces. The first number, which is 1, is repeated in the last position. R also displays a warning message because the number of values does not evenly fit the number of rows. However, the matrix is still created successfully.
+
+Part B — Subsetting Matrices
+# Using scores from Part A:
+# TODO: Access the single value in row 1, column 2 using scores[1, 2]
+# TODO: Access the entire first row using scores[1, ]
+# TODO: Access the entire "Ben" column using scores[, "Ben"]
+```{r}
+# Create the scores matrix
+scores <- matrix(c(88, 92, 79, 95, 84, 90),
+                 nrow = 2, ncol = 3, byrow = TRUE)
+
+rownames(scores) <- c("Quiz1", "Quiz2")
+colnames(scores) <- c("Ana", "Ben", "Cid")
+
+# Access the value in row 1, column 2
+scores[1, 2]
+
+# Access the entire first row
+scores[1, ]
+
+# Access the entire Ben column
+scores[, "Ben"]
+```
+
+# TODO: Return only the values in scores that are greater than or equal
+# to 90 (hint: scores[scores >= 90] -- note the result loses its shape)
+```{r}
+# Get values greater than or equal to 90
+scores[scores >= 90]
+```
+Answer:The output displays the values 95, 92, and 90 because they are greater than or equal to 90. The result becomes a numeric vector instead of a matrix because R only returns the values that satisfy the condition
+
+Question #3:scores[1, ] and scores[, "Ben"] both return a result, but one represents a row and the other a column.
+Run class() on each result. What data structure does R “downgrade” a single row/column of a matrix to, and why do you think R does this automatically?
+```{r}
+# Get the first row
+class(scores[1, ])
+
+# Get the Ben column
+class(scores[, "Ben"])
+```
+Answer:R automatically converts a single row or column of a matrix into a numeric vector instead of keeping it as a matrix. It does this because a single row or column can be represented as a simple vector, making the data easier to use and process. This automatic conversion is called dropping dimensions.
+
+Question #4:In the matrix-logical chunk, the row/column names disappeared from your result. * Why does subsetting with a logical condition (scores >= 90) lose the 2D shape and names thatscores[1, ] kept?
+```{r}
+# Select values greater than or equal to 90
+scores[scores >= 90]
+
+# Check the result
+class(scores[scores >= 90])
+```
+Answer:When I use scores >= 90, R checks each value in the matrix and returns only the values that meet the condition. The result becomes a simple numeric vector instead of a matrix because logical indexing extracts the matching values without preserving the original row and column structure. The row and column names are also removed because the result is no longer a two-dimensional matrix.
+
+Part C — Matrix Properties and Operations
+# TODO: Use dim(), nrow(), and ncol() on scores to report its dimensions
+# TODO: Use t() to transpose scores and store it as scores_t
+# Print scores_t and compare its dimensions to scores using dim()
+```{r}
+# Check the dimensions of scores
+dim(scores)
+
+# Get the number of rows
+nrow(scores)
+
+# Get the number of columns
+ncol(scores)
+
+# Transpose the scores matrix
+scores_t <- t(scores)
+
+# Print the transposed matrix
+print(scores_t)
+
+# Compare the dimensions
+dim(scores)
+dim(scores_t)
+```
+Answer:The original scores matrix has 2 rows and 3 columns. After using the t() function, the rows and columns are switched. The transposed matrix has 3 rows and 2 columns. The values remain the same, but their positions are changed.
+
+a <- matrix(1:4, nrow = 2)
+b <- matrix(5:8, nrow = 2)
+
+# TODO: Add a and b element-wise (a + b)
+# TODO: Multiply a and b element-wise (a * b)
+```{r}
+# Create matrix a
+a <- matrix(1:4, nrow = 2)
+
+# Create matrix b
+b <- matrix(5:8, nrow = 2)
+
+# Add matrices element-wise
+a + b
+
+# Multiply matrices element-wise
+a * b
+```
+Answer:The addition operator + adds the corresponding elements of matrices a and b. The multiplication operator * multiplies each corresponding element individually. Both operations produce a 2×2 matrix.
+
+# TODO: Perform true matrix multiplication of a and b using %*%
+# Compare this result to a * b above -- they should be different
+```{r}
+# Perform true matrix multiplication
+a %*% b
+```
+Answer:The %*% operator performs true matrix multiplication by multiplying the rows of the first matrix with the columns of the second matrix and adding the results. Unlike *, which multiplies corresponding elements, %*% follows the mathematical rules of matrix multiplication. Therefore, the results are different.
+
+
+Question #5:a * b and a %*% b both “multiply” the same two matrices but give different results.
+Explain the difference between element-wise multiplication and matrix multiplication in your own words.
+
+Answer:Element-wise multiplication using * multiplies each element of the first matrix by the corresponding element of the second matrix. On the other hand, matrix multiplication using %*% multiplies the rows of the first matrix by the columns of the second matrix and adds the products together. They give different results because they follow different multiplication rules.
+
+Question #6:t(scores) swaps rows and columns. Look at dim(scores) versus dim(scores_t).
+Why must the row/column names also swap positions when you transpose a matrix?
+
+Answer:The row and column names must also swap positions because transposing a matrix changes its rows into columns and its columns into rows. The names need to follow their corresponding data so that the information remains organized and correct. For example, the student names (Ana, Ben, and Cid) become the row names, while Quiz1 and Quiz2 become the column names.
+
+Part D — cbind() and rbind()
+# TODO: A new student "Dex" scored 85 on Quiz1 and 91 on Quiz2.
+# Use cbind() to add a new column to scores called Dex with
+# these two values. Store the result as scores_v2 and print it.
+```{r}
+# Add a new student named Dex
+scores_v2 <- cbind(scores, Dex = c(85, 91))
+
+# Print the updated matrix
+print(scores_v2)
+```
+Answer:The cbind() function successfully adds a new column named Dex to the original scores matrix. Dex received a score of 85 in Quiz1 and 91 in Quiz2. The updated matrix now has 2 rows and 4 columns.
+
+# TODO: A new quiz "Quiz3" was given with scores 80, 88, 93 for
+# Ana, Ben, Cid (use only the original 3 students, not Dex).
+# Use rbind() to add this as a new row to scores. Store as scores_v3
+# and print it.
+```{r}
+# Add a new quiz for the original three students
+scores_v3 <- rbind(scores, Quiz3 = c(80, 88, 93))
+
+# Print the updated matrix
+print(scores_v3)
+```
+Answer:The rbind() function successfully adds a new row named Quiz3 to the original scores matrix. Ana scored 80, Ben scored 88, and Cid scored 93. The updated matrix now has 3 rows and 3 columns.
+
+Question #7 * What would happen if you tried cbind(scores, c(85, 91, 100)) — giving 3 values for a matrix that only has 2 rows? * Test it, read the warning/error, and explain why cbind() and rbind()) require matching dimensions.
+```{r}
+# Try adding a column with 3 values to a matrix with 2 rows
+test_scores <- cbind(scores, c(85, 91, 100))
+
+# Display the result
+print(test_scores)
+```
+Answer:When I use cbind() with three values while the original matrix has only two rows, R displays a warning because the dimensions do not match. R tries to recycle the values to fill the available rows, so the third value is not included in the resulting matrix. The cbind() function requires matching row counts, while rbind() requires matching column counts. This ensures that the data is arranged correctly.
+
+Question #8:In what situation would you use rbind() instead of cbind() when updating a dataset over time?
+Give a concrete example (e.g., daily sales, weekly attendance) and explain your reasoning.
+
+Answer:I would use rbind() when adding new records or observations to an existing dataset over time. For example, if I have a daily sales record for Monday to Friday and want to add Saturday's sales, I would use rbind() to add a new row. I would use this function because Saturday represents a new observation with the same columns as the previous days. This makes the dataset organized and easier to update.
+
+Part E — Arrays: Creating and Subsetting
+An array extends a matrix into a third dimension — think of it as several matrices (“layers”) stacked together.
+# TODO: Create a 2x3x2 array called arr using:
+# array(1:12, dim = c(2, 3, 2))
+# Print arr and observe how it displays as two separate 2x3 "slices"
+```{r}
+# Create a 2x3x2 array containing numbers 1 to 12
+arr <- array(1:12, dim = c(2, 3, 2))
+
+# Display the array
+print(arr)
+```
+Answer:The array arr contains numbers 1 to 12 arranged into two separate layers. Each layer has 2 rows and 3 columns.
+
+# TODO: Access the element in row 1, column 2, of the SECOND layer
+# (slice) of arr, e.g. arr[1, 2, 2]
+# TODO: Access the entire first layer (slice) of arr using arr[ , , 1]
+```{r}
+# Access row 1, column 2, of the second layer
+arr[1, 2, 2]
+
+# Access the entire first layer
+arr[, , 1]
+```
+Answer:The value in row 1, column 2, of the second layer is 9. The first layer contains the numbers 1 to 6 arranged in 2 rows and 3 columns.
+
+
+
+# TODO: Use dim() on arr to confirm its dimensions
+```{r}
+# Check the dimensions of the array
+dim(arr)
+```
+Answer:The array has 2 rows, 3 columns, and 2 layers. The dim() function displays the dimensions of the array.
+
+Question #9:A matrix needs 2 indices (scores[row, col]) but an array needs 3 (arr[row, col, layer]).
+Using dim(arr), explain in your own words what each of the three numbers represents.
+
+Answer:The three numbers returned by dim(arr) represent the structure of the array. The first number, 2, represents the number of rows. The second number, 3, represents the number of columns. The third number, 2, represents the number of layers or slices in the array.
+
+Question #10:Give a real-world example of data that would naturally fit a 3D array structure (hint: think of something that has rows, columns, AND a third repeating dimension like time, subjects, or categories).
+
+Explain why a single 2D matrix would not be enough.
+
+Answer:A good example of a 3D array is a student's examination scores recorded over three semesters. The rows can represent students, the columns can represent different subjects, and the layers can represent the semesters. A single 2D matrix would not be enough because it can only represent rows and columns, while a 3D array can store the scores from multiple semesters in separate layers.
+
+Part F — Critical Thinking Challenge
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+dimnames = list(c("S1", "S2"), c("Midterm", "Final")))
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+dimnames = list(c("S3", "S4"), c("Midterm", "Final")))
+
+# TODO: Combine class_a and class_b into one matrix called all_students
+# using the correct bind function (think about whether these represent
+# new STUDENTS or new SCORE COLUMNS before choosing cbind or rbind)
+```{r}
+# Create the first class matrix
+class_a <- matrix(c(85, 90, 78, 92), nrow = 2, byrow = TRUE,
+                  dimnames = list(c("S1", "S2"),
+                                  c("Midterm", "Final")))
+
+# Create the second class matrix
+class_b <- matrix(c(88, 84, 95, 91), nrow = 2, byrow = TRUE,
+                  dimnames = list(c("S3", "S4"),
+                                  c("Midterm", "Final")))
+
+# Combine both classes using rbind()
+all_students <- rbind(class_a, class_b)
+
+# Display the combined matrix
+print(all_students)
+```
+Answer:I used rbind() to combine the two class matrices because they contain different students but have the same columns. The function adds the students from Class B as new rows after the students from Class A.
+
+# TODO: From all_students, compute each student's average score across
+# Midterm and Final. Hint: rowMeans(all_students) does this in one line.
+```{r}
+# Calculate the average score of each student
+student_averages <- rowMeans(all_students)
+
+# Display the average scores
+print(student_averages)
+```
+Answer:The rowMeans() function calculates the average score of each student based on their Midterm and Final scores. S1 has an average of 87.5, S2 has 85, S3 has 86, and S4 has 93.
+
+Question #11:Explain WHY you chose cbind() or rbind() in challenge-1.
+What clue in the data (shared row names vs. shared column names) told you which function was correct?
+
+Answer:I chose rbind() because the two matrices contain different students but have the same column names, which are Midterm and Final. This means I need to add new rows instead of new columns. The shared column names indicate that the data should be combined vertically using rbind().
+
+Question #12:Suppose instead of 2 classes you had 5 classes, each recorded as a separate matrix with the same 2 columns (Midterm, Final).
+Describe, in plain language (no code required), how you would combine all 5 into a single matrix, and how you would check your final result is correct using dim().
+
+Answer:I would use the rbind() function to combine all five class matrices into one large matrix because they all have the same two columns, Midterm and Final. I would add the rows of each class one after another. After combining them, I would use the dim() function to check the number of rows and columns. If each class has two students, the final matrix should have 10 rows and 2 columns.
+
+Conclusion
+In 3–4 sentences, summarize the key differences between a matrix and an array, and describe a situation where cbind()/rbind() would be useful in a real dataset you might work with.
+
+Answer:A matrix is a two-dimensional data structure that contains rows and columns, while an array can have three or more dimensions. Arrays are useful for storing data with multiple layers, such as student scores from different semesters. The cbind() function is used to add new columns, while rbind() is used to add new rows. These functions are useful when updating real datasets, such as adding new students or recording additional examination results.
