@@ -1,3 +1,0 @@
-"0","# Extract the first five rows and all columns"
-"0",""
-"0","survey[1:5, ]"

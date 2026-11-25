@@ -1,3 +1,0 @@
-"0","# Arrange sales from highest to lowest"
-"0",""
-"0","sales[order(sales$units_sold, decreasing = TRUE), ]"

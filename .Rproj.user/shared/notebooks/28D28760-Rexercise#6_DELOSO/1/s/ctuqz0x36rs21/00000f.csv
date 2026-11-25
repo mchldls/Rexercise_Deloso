@@ -1,2 +1,0 @@
-"0","# Filter students who passed"
-"0","students[students$passed == TRUE, ]"

@@ -1,3 +1,0 @@
-"0","# Reorder the entire students data frame"
-"0",""
-"0","students[order(students$score), ]"

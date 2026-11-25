@@ -1,2 +1,0 @@
-"0","# Filter students who passed and are older than 19"
-"0","students[students$passed == TRUE & students$age > 19, ]"
