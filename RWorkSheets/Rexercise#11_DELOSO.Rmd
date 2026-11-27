@@ -369,21 +369,20 @@ table(grades$Scholarship)
 
 
 Question #10:
-```{r}
-# 1. Why did you check is.na() before comparing the final grade to a number?
-# Checking is.na() first catches missing grades before numeric comparisons like >= 75 run,
+1. Why did you check is.na() before comparing the final grade to a number?
+#Checking is.na() first catches missing grades before numeric comparisons like >= 75 run,
 # because comparing NA with a number produces NA instead of a clean TRUE or FALSE.
 
-# 2. In Task 3.2, what would happen if the Failed condition were placed before the Incomplete condition?
+2. In Task 3.2, what would happen if the Failed condition were placed before the Incomplete condition?
 # If the Failed check came first, students with a missing final grade could be misclassified
 # as "Failed" (or get NA/unexpected results) instead of being labeled "Incomplete" first.
 
-# 3. When is ifelse() the better choice than if ... else, and when is if ... else better?
+ 3. When is ifelse() the better choice than if ... else, and when is if ... else better?
 # Use ifelse() when evaluating conditions across a whole vector or data frame column at once,
 # and use if ... else when controlling flow or picking branches for a single TRUE/FALSE value.
 
-# 4. Why is it useful to read an exported CSV back into R?
+4. Why is it useful to read an exported CSV back into R?
 # Reading the CSV back lets you verify that all rows, columns, and values (including NA and
 # row.names = FALSE) were saved accurately before submitting or sharing the file.
-```
+
 
